@@ -1,0 +1,26 @@
+To whom it may concern,
+
+The unauthenticated creation of users a concern.  There must be a better way.
+
+Espeically on update.  I'd require a token there, but the API does not.
+
+i switched the database to storing bcrypt hashes instead of plaintext for
+passwords so if we were compromised, we have some protection.  I didn't
+use the recommended number of rounds because my dev box couldn't hack it.
+
+JWT tokens have no expiry in this setup so if they are compromised, that's
+a problem.  But I did update the JWT secret not to be a simple plaintext
+string.  It is a hash from /dev/random on my mac taken with:
+
+dd if=/dev/random bs=1k count=1 | shasum
+
+I didn't get to play with async as much I might have liked given that this
+was my first project with:
+
+- express
+- mongodb
+- mongoose
+
+I hope you enjoy my efforts,
+
+-Ira

@@ -1,5 +1,5 @@
 {
   "port": 3000,
   "mongoUri": "mongodb://localhost/players-api",
-  "jwtsecret": "jwtsecrethere"
+  "jwtsecret": "750b2bd528deae1cf1c96dc1ed0d2b378082d054"
 }
