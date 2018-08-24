@@ -34,6 +34,18 @@ describe('Player API', () => {
         });
     });
 
+    it('should fail if an invalid token is provided', done => {
+      chai.request(server)
+        .post('/api/players')
+        .send(data.player)
+	.set('Authorization', 'Bearer __BAD_TOKEN__')
+        .end(err => {
+          expect(err).to.exist;
+          expect(err.status).to.equal(403);
+          done();
+        });
+    });
+
     ['first_name', 'last_name', 'rating', 'handedness'].forEach(field => {
       it(`should fail if ${ field } not present`, done => {
         chai.request(server)
@@ -97,6 +109,17 @@ describe('Player API', () => {
         });
     });
 
+    it('should fail if an invalid token is provided', done => {
+      chai.request(server)
+	.get('/api/players')
+	.set('Authorization', 'Bearer __BAD_TOKEN__')
+        .end(err => {
+          expect(err).to.exist;
+          expect(err.status).to.equal(403);
+          done();
+        });
+    });
+      
     it('should deliver an empty array if no players', async () => {
       let res, error;
       try {
@@ -174,6 +197,17 @@ describe('Player API', () => {
     it('should fail if token not provided', done => {
       chai.request(server)
         .delete('/api/players/1')
+        .end(err => {
+          expect(err).to.exist;
+          expect(err.status).to.equal(403);
+          done();
+        });
+    });
+
+    it('should fail if token not provided', done => {
+      chai.request(server)
+        .delete('/api/players/1')
+	.set('Authorization', `Bearer __BAD_TOKEN__`)
         .end(err => {
           expect(err).to.exist;
           expect(err.status).to.equal(403);
